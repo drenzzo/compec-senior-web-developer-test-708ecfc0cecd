@@ -3,12 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Agenda</title>
+    <style type="text/css">
+        tbody, thead{
+            display:block;
+        }
+
+        tbody{
+            overflow: auto;
+            height: 480px;
+        }
+
+        td{
+            height:35px;
+            width: 110px;
+        }
+    </style>
 </head>
 <body>
 
     <h2>Agenda</h2>
 
-    <table>
+
+    <input id="filter" placeholder="Filtrar" />
+    <table id="tblFilter">
         <thead>
             <tr>
                 <td><strong>Nombre</strong></td>
@@ -21,7 +38,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>Marina</td>
+                <td class="nombre">Marina</td>
                 <td>Kutch</td>
                 <td>8392 Kozey Lights</td>
                 <td>922830776</td>
@@ -29,7 +46,7 @@
                 <td><img src='images/44e6f06bf88104c961da8be3652aee25.jpg' height="40"></td>
             </tr>
             <tr>
-                <td>Carlee</td>
+                <td class="nombre">Carlee</td>
                 <td>Lowe</td>
                 <td>768 Betty Oval</td>
                 <td>989465470</td>
@@ -37,7 +54,7 @@
                 <td><img src='images/8a5dbe6ccd852add596bd3bbb141fc7b.jpg' height="40"></td>
             </tr>
             <tr>
-                <td>Anibal</td>
+                <td class="nombre">Anibal</td>
                 <td>Hegmann</td>
                 <td>398 Dannie Brooks</td>
                 <td>997846736</td>
@@ -45,7 +62,7 @@
                 <td><img src='images/17f87dc492199e99895c4d7c5267a713.jpg' height="40"></td>
             </tr>
             <tr>
-                <td>Marcelino</td>
+                <td class="nombre">Marcelino</td>
                 <td>Cruickshank</td>
                 <td>856 Renner Mission Suite 385</td>
                 <td>932923782</td>
@@ -424,5 +441,23 @@
     </table>
 
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Filtro -->
+    <script type="text/javascript">
+        $("#filter").keyup(function(){
+            //oculto todas las filas mientras voy escribiendo en el input
+            $("#tblFilter tbody > tr").hide(); 
+            //si hay cadena ingresada
+            if(this.value.length){
+                var data = this.value.split(" ");
+                //por cada valor ingresado voy mostrando las coincidencias
+                $.each(data, function (i, v){
+                    //Muestro las filas completas donde hay coincidencias en la primera celda (nombre)
+                    $("#tblFilter td:first-child:contains('" + v + "')").parent("tr").show();
+                });
+            } 
+            else $("#tblFilter tbody > tr").show(); 
+        });
+    </script>
 </body>
 </html>
